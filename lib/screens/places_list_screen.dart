@@ -32,10 +32,8 @@ class PlacesListScreen extends ConsumerWidget {
                     builder: (context) =>
                         PlaceDetailsScreen(place: places[index])));
               },
-              leading: Container(
-                height: 20,
-                width: 20,
-                color: Colors.orange,
+              leading: CircleAvatar(
+                backgroundImage: FileImage(places[index].selectedImage),
               ),
               title: Text(
                 places[index].name,

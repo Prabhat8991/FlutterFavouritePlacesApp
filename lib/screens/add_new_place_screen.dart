@@ -1,6 +1,8 @@
+import 'dart:io';
 
 import 'package:favourite_places/providers/places_provider.dart';
 import 'package:favourite_places/widgets/image_input.dart';
+import 'package:favourite_places/widgets/location_input.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -17,6 +19,7 @@ class AddNewPlaceScreen extends ConsumerStatefulWidget {
 
 class _AddNewPlaceState extends ConsumerState<AddNewPlaceScreen> {
   String _name = '';
+  File? _selectedImage;
 
   @override
   Widget build(BuildContext context) {
@@ -43,15 +46,20 @@ class _AddNewPlaceState extends ConsumerState<AddNewPlaceScreen> {
             const SizedBox(
               height: 20,
             ),
-            const ImageInput(),
+            ImageInput(onImageSelected: (selectedImage) {
+              _selectedImage = selectedImage;
+            }),
+            const SizedBox(
+              height: 20,
+            ),
+            const LocationInput(),
             const SizedBox(
               height: 20,
             ),
             ElevatedButton(
                 onPressed: () {
-                  ref
-                      .read(placesNotifierProvider.notifier)
-                      .addNewPlace(Place(name: _name));
+                  ref.read(placesNotifierProvider.notifier).addNewPlace(
+                      Place(name: _name, selectedImage: _selectedImage!));
                   Navigator.of(context).pop();
                 },
                 child: const Text("Submit"))

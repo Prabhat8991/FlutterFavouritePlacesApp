@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
 class ImageInput extends StatefulWidget {
-  const ImageInput({super.key});
+  const ImageInput({super.key, required this.onImageSelected});
+
+  final void Function(File file) onImageSelected;
 
   @override
   State<StatefulWidget> createState() {
@@ -25,6 +27,7 @@ class _ImageInputState extends State<ImageInput> {
     setState(() {
       _selectedFile = File(selectedImage.path);
     });
+    widget.onImageSelected(_selectedFile!);
   }
 
   @override
@@ -35,9 +38,14 @@ class _ImageInputState extends State<ImageInput> {
         label: const Text("Pick an image"));
 
     if (_selectedFile != null) {
-      content = Image.file(
-        _selectedFile!,
-        fit: BoxFit.cover,
+      content = GestureDetector(
+        onTap: _takePicture,
+        child: Image.file(
+          _selectedFile!,
+          fit: BoxFit.cover,
+          width: double.infinity,
+          height: double.infinity,
+        ),
       );
     }
 

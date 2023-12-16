@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import '../models/place.dart';
 
 class PlaceDetailsScreen extends StatelessWidget {
-
   const PlaceDetailsScreen({super.key, required this.place});
 
   final Place place;
@@ -16,23 +15,18 @@ class PlaceDetailsScreen extends StatelessWidget {
       ),
       body: Padding(
         padding: const EdgeInsets.all(16),
-        child: Column(
-          children: [
-            Text(place.name, style: Theme
-                .of(context)
-                .textTheme
-                .titleMedium
-                ?.copyWith(
-                color: Theme
-                    .of(context)
-                    .colorScheme
-                    .onBackground
-            ),)
-          ],
+        child: Stack(
+              children: [
+                Image.file(
+                  place.selectedImage,
+                  fit: BoxFit.cover,
+                  height: double.infinity,
+                  width: double.infinity,
+                )
+              ],
+            )
         ),
-      ),
     );
   }
-
-
 }
+
