@@ -29,7 +29,7 @@ class _AddNewPlaceState extends ConsumerState<AddNewPlaceScreen> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(16),
-        child: Column(
+        child: ListView(
           children: [
             TextField(
               style: Theme.of(context)
